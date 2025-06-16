@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: grid;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #c5c5c5;
+            scrollbar-width: none;
+            font-family: 'Calistoga', sans-serif;
+
+        }
+
+        h3 {
+            color: #727D73;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        #calc,
+        .cvr {
+            border-radius: 35px;
+            border: .3rem solid #1E201E;
+        }
+
+        #calc {
+            background-color: #727D73;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 25px;
+        }
+
+        .cvr {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1E201E;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #display {
+            width: 100%;
+            padding: 20px;
+            font-size: 3.5rem;
+            background-color: #1E201E;
+            color: #D0DDD0;
+        }
+
+        button {
+            width: 1.3em;
+            height: 1.3em;
+            border-radius: 50px;
+            border: none;
+            background-color: #3d3e38;
+            color: #D0DDD0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #52534b;
+        }
+
+        button:active {
+            background-color: #282824;
+        }
+
+        .operator-btn {
+            background-color: #6e8c75;
+        }
+
+        .operator-btn {
+            background-color: #849f8a;
+        }
+
+        .operator-btn {
+            background-color: #5c7562;
+        }
+
+        .equalbtn,
+        .cvr-btn {
+            background-color: #e7cbcb;
+            color: #52534b;
+        }
+
+        .equalbtn:hover,
+        .cvr-btn:hover {
+            background-color: #f4e7e7;
+        }
+
+        .equalbtn:active,
+        .cvr-btn:active {
+            background-color: #d6a8a8;
+        }
+
+        .cvr-btn {
+            width: 1.6em;
+            height: 1.6em;
+            font-size: 2em;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cvr {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1E201E;
+            border-radius: 35px;
+            z-index: 1000;
+            overflow: hidden;
+            transform: translateY(0%);
+            opacity: 1;
+        }
+
+        .cvr.slide-up {
+            animation: slideUp 1.5s forwards;
+        }
+
+        .cvr.slide-down {
+            animation: slideDown 1.5s forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(0%);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0%);
+                opacity: 1;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc</title>
+</head>
+
+<body>
+    <h3>Made by Yoviaaaa</h3>
+    <div id="calc">
+        <div id="cvr" class="cvr">
+            <button id="cvrbtn" onclick="recover()" class="cvr-btn"><i class="fa-solid fa-lock"></i></button>
+        </div>
+        <input readonly id="display">
+        <div id="keys">
+            <button onclick="appendtodisplay('+')" class="operator-btn">+</button>
+            <button onclick="appendtodisplay('7')">7</button>
+            <button onclick="appendtodisplay('8')">8</button>
+            <button onclick="appendtodisplay('9')">9</button>
+            <button onclick="appendtodisplay('-')" class="operator-btn">-</button>
+            <button onclick="appendtodisplay('4')">4</button>
+            <button onclick="appendtodisplay('5')">5</button>
+            <button onclick="appendtodisplay('6')">6</button>
+            <button onclick="appendtodisplay('*')" class="operator-btn">*</button>
+            <button onclick="appendtodisplay('1')">1</button>
+            <button onclick="appendtodisplay('2')">2</button>
+            <button onclick="appendtodisplay('3')">3</button>
+            <button onclick="appendtodisplay('/')" class="operator-btn">/</button>
+            <button onclick="appendtodisplay('0')">0</button>
+            <button onclick="appendtodisplay('.')">.</button>
+            <button onclick="calculate()" class="equalbtn">=</button>
+            <button onclick="cleardisplay()" class="operator-btn">C</button>
+            <button onclick="cover()" class="cvr-btn"><i class="fa-solid fa-lock-open"></i></button>
+        </div>
+    </div>
+    <script>
+        const display = document.getElementById("display")
+        const cvr = document.getElementById("cvr")
+        const cvrbtn = document.getElementById("cvrbtn")
+
+        function appendtodisplay(input) {
+            display.value += input;
+
+        }
+        function cleardisplay() {
+            display.value = "";
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value)
+            }
+            catch (error) {
+                display.value = "Error"
+            }
+        }
+
+        function recover() {
+            cvr.classList.remove("slide-down");
+            cvr.classList.add("slide-up");
+            display.value = "";
+        }
+
+        function cover() {
+            cvr.classList.remove("slide-up");
+            cvr.classList.add("slide-down");
+        }
+
+    </script>
+</body>
+
+</html>
