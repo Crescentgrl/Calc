@@ -212,9 +212,12 @@
         const cvrbtn = document.getElementById("cvrbtn")
 
         function appendtodisplay(input) {
+            if (display.value === "Error" || display.value === "undefined") {
+                display.value = "";
+            }
             display.value += input;
-
         }
+
         function cleardisplay() {
             display.value = "";
         }
